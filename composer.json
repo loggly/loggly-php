@@ -1,0 +1,12 @@
+{
+    "name": "loggly/loggly-php",
+    "description": "Loggly SDK for PHP",
+    "autoload": {
+        "classmap": ["Loggly.php"]
+    },
+    "require": {
+        "php": ">=5.2.0",
+
+        "ext-curl": "*"
+    }
+}
