@@ -76,10 +76,13 @@ class Loggly {
         }
 
         $result = curl_exec($curl);
-        $status = curl_getinfo($curl, CURLINFO_HTTP_CODE); 
+
+        if (!$result) {
+          throw new LogglyException(curl_error($curl));
+        }
 
         $json = json_decode($result, true);
-        if (!$json && $result) {
+        if (!$json) {
             # API is inconsistent
             $status = curl_getinfo($curl, CURLINFO_HTTP_CODE); 
             if ($status >= 200 && $status <= 299) {
