@@ -2,11 +2,11 @@
 ==============
 ==============
 
-
-
 This is a library that developers can use to interact with Loggly, without having to deal with the intricacies of cURL.
 
 Input and device IDs can be found with getInputs() and getDevices(), respectively, or by navigating to the page in the Loggly UI and looking for the number in the URL.
+
+Check out Loggly's [PHP logging documentation](https://www.loggly.com/docs/php-logs/) for more. 
 <br>
 
 
