@@ -24,6 +24,7 @@ class Loggly {
     public $subdomain = '';
     public $username = '';
     public $password  = '';
+    public $apiToken  = '';
     public $inputs = array();
 
     public function __construct() {}
@@ -47,7 +48,13 @@ class Loggly {
         }
 
         # set HTTP headers
-        curl_setopt($curl, CURLOPT_USERPWD, $this->username . ':' . $this->password);
+        $headers = [];
+        if($this->username || $this->password){
+            curl_setopt($curl, CURLOPT_USERPWD, $this->username . ':' . $this->password);
+        }
+        if($this->apiToken){
+            $headers[] = 'Authorization: bearer ' . $this->apiToken;
+        }
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
     
@@ -72,7 +79,11 @@ class Loggly {
 
         # satisfy content length header requirement for PUT
         if ($method === 'PUT') {
-            curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Length: ' . strlen($qs))); 
+            $headers[] = 'Content-Length: ' . strlen($qs);
+        }
+
+        if(!empty($headers)){
+            curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         }
 
         $result = curl_exec($curl);
@@ -126,7 +137,7 @@ class Loggly {
 
     public function search($q, $params = null) {
         $params['q'] = $q;
-        return $this->makeRequest('/api/search', $params);
+        return $this->makeRequest('/apiv2/events/iterate', $params);
     }
 
     public function facet($q, $facet = 'date', $params = null) {

@@ -21,9 +21,19 @@ The first step is to instantiate a new instance of the Loggly class:
 
     $loggly->subdomain = '<loggly subdomain>';
 
+Authenticate using username & password
+========================================
+
+
     $loggly->username = 'demo';
 
     $loggly->password = '42ftw';
+
+Authenticate using [API Token](https://www.loggly.com/docs/token-based-api-authentication/)
+==============================
+
+
+    $loggly->apiToken = 'c1f1e7e4-61e7-4b19-83f4-a26dd61dca3c';
 
 
 Input and Device Methods
