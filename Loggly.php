@@ -137,7 +137,7 @@ class Loggly {
 
     public function search($q, $params = null) {
         $params['q'] = $q;
-        return $this->makeRequest('/api/search', $params);
+        return $this->makeRequest('/apiv2/events/iterate', $params);
     }
 
     public function facet($q, $facet = 'date', $params = null) {
